@@ -100,27 +100,6 @@
             transform: translateY(0);
         }
 
-        /* Float Widget */
-        @keyframes pulse-ring {
-            0% {
-                transform: scale(0.85);
-                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
-            }
-
-            70% {
-                transform: scale(1);
-                box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
-            }
-
-            100% {
-                transform: scale(0.85);
-                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
-            }
-        }
-
-        .whatsapp-widget {
-            animation: pulse-ring 2s infinite;
-        }
 
         /* Background Overlays */
         .hero-overlay {
@@ -168,12 +147,6 @@
         </div>
     </header>
 
-    <!-- WhatsApp Floating Widget -->
-    <a href="https://wa.me/2347042675512?text=Hello%20Skyfort%2C%20I%20am%20interested%20in%20the%20Skyfort%20Wuse%20II%20property%20and%20would%20like%20to%20know%20more."
-        target="_blank"
-        class="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-lg whatsapp-widget hover:scale-110 transition-transform duration-300">
-        <i class="fab fa-whatsapp"></i>
-    </a>
 
     <!-- Pop-up Modal (Hidden initially) -->
     <div id="promo-modal" class="fixed inset-0 z-[60] flex items-center justify-center bg-black/80 backdrop-blur-sm">
@@ -888,7 +861,7 @@
                                 <span
                                     class="hover:text-brand-gold transition-colors cursor-pointer">info@skyfort.com</span>
                             </li>
-                            <li class="flex flex-start gap-3">
+                            <li class="flex items-start gap-3">
                                 <i class="fas fa-map-marker-alt text-brand-gold w-5 mt-1"></i>
                                 <span>Durban Street, Wuse 2,<br>Abuja, Nigeria.</span>
                             </li>
@@ -920,7 +893,6 @@
                         class="hover:text-brand-gold transition-colors">skyfortconstructionltd.com</a>
                 </div>
         </footer>
-
     </main>
 
     <!-- Scripts -->

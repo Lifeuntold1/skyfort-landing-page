@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Skyfort Wuse II – Premium Residences | Wuse II, Abuja</title>
+  <meta name="description" content="Discover Skyfort Wuse II – Studio Apartments, Urban Suites, Two Bedroom Suites and 3 Bedroom PentHouses in Abuja. Book your inspection tour now." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { cinzel: ['Cinzel','serif'], poppins: ['Poppins','sans-serif'] },
+          colors: { gold:'#D4AF37', midnight:'#05050A' },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    *,*::before,*::after{box-sizing:border-box;}
+    html{font-family:'Poppins',sans-serif;background:#05050A;color:#e5e5e5;}
+
+    /* ── Hero ── */
+    .hero-banner{position:relative;height:100vh;min-height:720px;padding-top:80px;background:url('wuse img (5).jpeg') center center/cover no-repeat;display:flex;align-items:center;justify-content:center;}
+    .hero-banner::after{content:'';position:absolute;inset:0;background:linear-gradient(160deg,rgba(5,5,10,.66) 0%,rgba(5,5,10,.50) 40%,rgba(5,5,10,.88) 100%);}
+
+    /* ── Gold accents ── */
+    .gold-line{display:block;width:72px;height:2px;background:#D4AF37;margin:0 auto 28px;}
+    .gold-line-left{display:block;width:56px;height:2px;background:#D4AF37;margin:0 0 24px;}
+
+    /* ── Feature cards ── */
+    .feature-card{position:relative;overflow:hidden;border-radius:16px;border:1px solid rgba(212,175,55,.18);background:rgba(255,255,255,.04);backdrop-filter:blur(14px);transition:transform .35s,box-shadow .35s,border-color .35s;padding:30px 24px;}
+    .feature-card:hover{transform:translateY(-6px);box-shadow:0 24px 64px rgba(212,175,55,.18);border-color:rgba(212,175,55,.5);}
+    .feature-card .card-bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.07;transition:opacity .35s;filter:grayscale(60%);}
+    .feature-card:hover .card-bg{opacity:.14;}
+    .feature-card .card-content{position:relative;z-index:1;}
+    .feature-icon{width:52px;height:52px;border-radius:12px;background:linear-gradient(135deg,rgba(212,175,55,.15),rgba(212,175,55,.05));border:1px solid rgba(212,175,55,.3);display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:1.3rem;color:#D4AF37;}
+    .feature-card:hover .feature-icon{background:linear-gradient(135deg,rgba(212,175,55,.3),rgba(212,175,55,.12));}
+
+    /* ── Unit grid ── */
+    .unit-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+    @media(min-width:768px){.unit-grid{grid-auto-rows:340px;}}
+    @media(max-width:767px){.unit-card{height:230px;}}
+
+    .unit-card{position:relative;overflow:hidden;border-radius:14px;cursor:pointer;border:1px solid rgba(212,175,55,.1);transition:border-color .3s,box-shadow .3s;}
+    .unit-card:hover{border-color:rgba(212,175,55,.5);box-shadow:0 20px 56px rgba(212,175,55,.22);}
+    .unit-card > img.thumb{width:100%;height:100%;object-fit:cover;transition:transform .7s;}
+    .unit-card:hover > img.thumb{transform:scale(1.07);}
+    .unit-card .overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(5,5,10,.9) 0%,rgba(5,5,10,.04) 60%);display:flex;flex-direction:column;justify-content:flex-end;padding:22px 20px;}
+    .unit-card .unit-tier{font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:#D4AF37;margin-bottom:4px;}
+    .unit-card .unit-name{font-family:'Cinzel',serif;font-size:1.05rem;font-weight:700;color:#fff;letter-spacing:.04em;margin-bottom:6px;}
+    .unit-card .unit-specs{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px;}
+    .unit-card .unit-specs span{font-family:'Poppins',sans-serif;font-size:.62rem;color:rgba(212,175,55,.85);background:rgba(212,175,55,.1);border:1px solid rgba(212,175,55,.28);border-radius:20px;padding:2px 9px;white-space:nowrap;}
+    .unit-card .unit-cta{font-family:'Poppins',sans-serif;font-size:.7rem;color:rgba(229,229,229,.55);display:flex;align-items:center;gap:5px;}
+
+    /* ── Unit interior slideshow modal ── */
+    #unitModal{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.96);backdrop-filter:blur(16px);flex-direction:column;align-items:center;justify-content:center;}
+    #unitModal.active{display:flex;}
+    .um-top{position:absolute;top:0;left:0;right:0;padding:20px 28px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(to bottom,rgba(0,0,0,.75),transparent);}
+    .um-unit-name{font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:#D4AF37;}
+    .um-close{width:44px;height:44px;border-radius:50%;border:1px solid rgba(212,175,55,.4);background:rgba(5,5,10,.6);color:#D4AF37;font-size:1.4rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s;flex-shrink:0;}
+    .um-close:hover{background:rgba(212,175,55,.25);}
+    .um-img-wrap{width:94vw;max-width:1200px;position:relative;border-radius:8px;overflow:hidden;box-shadow:0 40px 120px rgba(0,0,0,.9),0 0 0 1px rgba(212,175,55,.2);}
+    .um-img-wrap img.um-slide{width:100%;max-height:80vh;object-fit:contain;background:#000;display:none;}
+    .um-img-wrap img.um-slide.active{display:block;}
+    .um-nav{position:absolute;top:50%;transform:translateY(-50%);width:50px;height:50px;border-radius:50%;background:rgba(5,5,10,.72);border:1px solid rgba(212,175,55,.35);color:#D4AF37;font-size:1.1rem;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2;transition:background .2s;}
+    .um-nav:hover{background:rgba(212,175,55,.25);border-color:rgba(212,175,55,.7);}
+    .um-prev{left:14px;} .um-next{right:14px;}
+    .um-bottom{position:absolute;bottom:0;left:0;right:0;padding:18px 28px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(to top,rgba(0,0,0,.75),transparent);}
+    .um-counter{font-family:'Poppins',sans-serif;font-size:.72rem;color:rgba(229,229,229,.5);}
+    .um-dots{display:flex;gap:8px;}
+    .um-dot{width:7px;height:7px;border-radius:50%;background:rgba(212,175,55,.3);cursor:pointer;transition:background .2s;}
+    .um-dot.active{background:#D4AF37;}
+
+    /* ── Reveal ── */
+    .reveal{opacity:0;transform:translateY(36px);transition:opacity .7s,transform .7s;}
+    .reveal.visible{opacity:1;transform:translateY(0);}
+    .reveal-left{opacity:0;transform:translateX(-36px);transition:opacity .7s,transform .7s;}
+    .reveal-left.visible{opacity:1;transform:translateX(0);}
+
+    /* ── Form ── */
+    .luxury-input{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(212,175,55,.28);border-radius:8px;padding:14px 18px;font-family:'Poppins',sans-serif;font-size:.95rem;color:#e5e5e5;outline:none;transition:border-color .25s,background .25s,box-shadow .25s;}
+    .luxury-input::placeholder{color:rgba(229,229,229,.38);}
+    .luxury-input:focus{border-color:#D4AF37;background:rgba(212,175,55,.06);box-shadow:0 0 0 3px rgba(212,175,55,.14);}
+
+    /* ── Buttons ── */
+    .btn-gold{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,#D4AF37 0%,#f0d060 50%,#D4AF37 100%);background-size:200% auto;color:#05050A;font-family:'Cinzel',serif;font-weight:700;letter-spacing:.12em;padding:16px 44px;border-radius:4px;border:none;cursor:pointer;text-decoration:none;transition:background-position .4s,transform .25s,box-shadow .3s;box-shadow:0 6px 32px rgba(212,175,55,.35);white-space:nowrap;}
+    .btn-gold:hover{background-position:right center;transform:translateY(-2px);box-shadow:0 12px 48px rgba(212,175,55,.55);}
+    .btn-ghost{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:transparent;color:#D4AF37;font-family:'Cinzel',serif;font-weight:600;letter-spacing:.12em;padding:15px 40px;border-radius:4px;border:2px solid #D4AF37;cursor:pointer;text-decoration:none;transition:background .25s,transform .25s;white-space:nowrap;}
+    .btn-ghost:hover{background:rgba(212,175,55,.12);transform:translateY(-2px);}
+    .btn-ghost-white{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:transparent;color:rgba(255,255,255,.85);font-family:'Poppins',sans-serif;font-weight:500;letter-spacing:.06em;padding:15px 40px;border-radius:4px;border:1px solid rgba(255,255,255,.35);cursor:pointer;text-decoration:none;transition:border-color .25s,color .25s;white-space:nowrap;}
+    .btn-ghost-white:hover{border-color:#D4AF37;color:#D4AF37;}
+
+    .section-rule{border:none;height:1px;background:linear-gradient(to right,transparent,rgba(212,175,55,.3),transparent);margin:0 auto;max-width:840px;}
+    .glass-card{background:rgba(255,255,255,.04);border:1px solid rgba(212,175,55,.18);backdrop-filter:blur(12px);border-radius:16px;}
+    @keyframes waPulse{0%,100%{box-shadow:0 0 0 0 rgba(37,211,102,.5);}70%{box-shadow:0 0 0 14px rgba(37,211,102,0);}}
+    .wa-btn{animation:waPulse 2.2s ease-out infinite;border-radius:50%;}
+  </style>
+</head>
+
+<body class="bg-midnight text-gray-100">
+
+  <!-- ═══ NAVBAR ═══ -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-xl shadow-sm border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-5 py-3 flex items-center justify-between">
+      <a href="hub.html" aria-label="Skyfort Home">
+        <img src="SKYFORT BRANDING DESIGNS.png" alt="Skyfort Construction Logo" class="h-14 w-auto object-contain" loading="eager" />
+      </a>
+      <div class="flex items-center gap-6 font-poppins text-sm font-medium text-gray-700">
+        <a href="#features" class="hidden md:inline hover:text-yellow-600 transition-colors">Features</a>
+        <a href="#units" class="hidden md:inline hover:text-yellow-600 transition-colors">Units</a>
+        <a href="#contact" class="hidden md:inline hover:text-yellow-600 transition-colors">Book Tour</a>
+        <a href="hub.html" class="flex items-center gap-2 text-gray-600 hover:text-yellow-600 transition-colors text-sm">
+          <i class="fa-solid fa-arrow-left text-xs"></i> Back to Hub
+        </a>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- ═══ HERO ═══ -->
+  <section class="hero-banner" aria-label="Skyfort Wuse II property hero">
+    <div class="relative z-10 text-center px-5 max-w-5xl mx-auto">
+      <p class="font-poppins text-xs tracking-[0.35em] uppercase text-gold mb-6 opacity-90">
+        Skyfort Wuse II &nbsp;|&nbsp; Wuse, Abuja, F.C.T
+      </p>
+      <h1 class="font-cinzel font-black text-white leading-tight tracking-wide text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl mb-6">
+        SKYFORT WUSE:<br class="hidden sm:block" />
+        WHERE UNRIVALED LUXURY<br class="hidden sm:block" />
+        MEETS CONVENIENCE.
+      </h1>
+      <span class="gold-line"></span>
+      <p class="font-poppins text-base sm:text-lg text-white/70 max-w-2xl mx-auto mb-10 leading-relaxed">
+        An iconic residential tower redefining the standard of premium living in Abuja's most prestigious address.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 items-center justify-center">
+        <a href="#contact" class="btn-gold text-sm sm:text-base px-8 py-4">
+          <i class="fa-solid fa-calendar-check"></i>&nbsp; Book Inspection Tour
+        </a>
+        <a href="#features" class="btn-ghost-white text-sm sm:text-base px-8 py-4">View Features</a>
+      </div>
+    </div>
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 opacity-60">
+      <span class="font-poppins text-xs tracking-widest text-white uppercase">Discover</span>
+      <i class="fa-solid fa-chevron-down text-gold text-lg animate-bounce"></i>
+    </div>
+  </section>
+
+
+  <!-- ═══ FEATURES ═══ -->
+  <section id="features" class="py-24 px-5 bg-midnight" aria-label="Property features">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16 reveal">
+        <p class="font-poppins text-xs tracking-[0.3em] uppercase text-gold mb-3 opacity-80">Premium Amenities</p>
+        <h2 class="font-cinzel font-bold text-white text-2xl sm:text-3xl md:text-4xl tracking-wide mb-5">Designed for the Exceptional Few</h2>
+        <span class="gold-line"></span>
+        <p class="font-poppins text-white/55 max-w-xl mx-auto text-sm sm:text-base">Every amenity at Skyfort Wuse II was selected with one standard — the finest.</p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div class="feature-card reveal">
+          <div class="card-bg" style="background-image:url('wuse img (2).jpeg');"></div>
+          <div class="card-content"><div class="feature-icon"><i class="fa-solid fa-concierge-bell"></i></div><h3 class="font-cinzel font-bold text-white text-sm tracking-wide mb-3">Grand Arrival Lobby &amp; Concierge</h3><p class="font-poppins text-white/60 text-xs leading-relaxed">Five-star hospitality from the moment you step inside. A grand lobby with professional concierge reception sets the standard.</p></div>
+        </div>
+        <div class="feature-card reveal" style="transition-delay:.08s;">
+          <div class="card-bg" style="background-image:url('wuse img (1).jpeg');"></div>
+          <div class="card-content"><div class="feature-icon"><i class="fa-solid fa-dumbbell"></i></div><h3 class="font-cinzel font-bold text-white text-sm tracking-wide mb-3">State-of-the-Art Private Gym</h3><p class="font-poppins text-white/60 text-xs leading-relaxed">Maintain peak performance without leaving the building. Premium equipment in a climate-controlled, resident-only environment.</p></div>
+        </div>
+        <div class="feature-card reveal" style="transition-delay:.16s;">
+          <div class="card-bg" style="background-image:url('wuse img (3).jpeg');"></div>
+          <div class="card-content"><div class="feature-icon"><i class="fa-solid fa-shield-halved"></i></div><h3 class="font-cinzel font-bold text-white text-sm tracking-wide mb-3">24/7 Smart Security System</h3><p class="font-poppins text-white/60 text-xs leading-relaxed">Smart-home tech fused with round-the-clock human security. Biometric access, CCTV, and barriers protect your family.</p></div>
+        </div>
+        <div class="feature-card reveal" style="transition-delay:.24s;">
+          <div class="card-bg" style="background-image:url('wuse img (4).jpeg');"></div>
+          <div class="card-content"><div class="feature-icon"><i class="fa-solid fa-solar-panel"></i></div><h3 class="font-cinzel font-bold text-white text-sm tracking-wide mb-3">Total Energy Independence</h3><p class="font-poppins text-white/60 text-xs leading-relaxed">Premium solar inverters paired with generators deliver 24/7 electricity. No outage disrupts your business or lifestyle.</p></div>
+        </div>
+        <div class="feature-card reveal" style="transition-delay:.08s;">
+          <div class="card-bg" style="background-image:url('wuse img (6).jpeg');"></div>
+          <div class="card-content"><div class="feature-icon"><i class="fa-solid fa-utensils"></i></div><h3 class="font-cinzel font-bold text-white text-sm tracking-wide mb-3">Exclusive On-Site Restaurant</h3><p class="font-poppins text-white/60 text-xs leading-relaxed">Entertain guests and dine in pure sophistication. Residents enjoy priority seating and bespoke in-suite dining.</p></div>
+        </div>
+        <div class="feature-card reveal" style="transition-delay:.16s;">
+          <div class="card-bg" style="background-image:url('wuse img (7).jpeg');"></div>
+          <div class="card-content"><div class="feature-icon"><i class="fa-solid fa-elevator"></i></div><h3 class="font-cinzel font-bold text-white text-sm tracking-wide mb-3">Modern High-Speed Elevators</h3><p class="font-poppins text-white/60 text-xs leading-relaxed">Seamless, rapid vertical transit with zero wait. Key-card-access elevators built for high-density luxury occupancy.</p></div>
+        </div>
+        <div class="feature-card reveal" style="transition-delay:.24s;">
+          <div class="card-bg" style="background-image:url('wuse img (8).jpeg');"></div>
+          <div class="card-content"><div class="feature-icon"><i class="fa-solid fa-house-signal"></i></div><h3 class="font-cinzel font-bold text-white text-sm tracking-wide mb-3">Smart Home Integration</h3><p class="font-poppins text-white/60 text-xs leading-relaxed">Control lighting, climate, access, and appliances from one app. Each unit ships with next-generation smart-home tech.</p></div>
+        </div>
+        <div class="feature-card reveal" style="transition-delay:.32s;">
+          <div class="card-bg" style="background-image:url('wuse img (9).jpeg');"></div>
+          <div class="card-content"><div class="feature-icon"><i class="fa-solid fa-car"></i></div><h3 class="font-cinzel font-bold text-white text-sm tracking-wide mb-3">Ample Secure Parking</h3><p class="font-poppins text-white/60 text-xs leading-relaxed">CCTV-monitored, organized vehicle management. Dedicated bays give you total confidence every time you leave.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <hr class="section-rule" />
+
+
+  <!-- ═══ UNIT GALLERY — 4 OFFICIAL UNIT TYPES, 3 UNIQUE INTERIOR IMAGES EACH ═══ -->
+  <section id="units" class="py-24 px-5 bg-midnight" aria-label="Residence types gallery">
+    <div class="max-w-7xl mx-auto">
+
+      <div class="text-center mb-16 reveal">
+        <p class="font-poppins text-xs tracking-[0.3em] uppercase text-gold mb-3 opacity-80">The Residences</p>
+        <h2 class="font-cinzel font-bold text-white text-2xl sm:text-3xl md:text-4xl tracking-wide mb-5">Choose Your Residence</h2>
+        <span class="gold-line"></span>
+
+      </div>
+
+      <!--
+        Interior image distribution (3 unique images per unit, no duplicates across units):
+        01 Studio Apartment      → WUSE INNER (1), (2), (3)
+        02 1-Bedroom Urban Suite → WUSE INNER (4), (5), (6)
+        03 Two Bedroom Suite     → WUSE INNER (7), (8), (9)
+        04 3 Bedroom PentHouse   → WUSE INNER (10), (5), (2)  [PH gets (10) as hero + two premium repeats for a penthouse feel]
+      -->
+      <div class="unit-grid" id="unitGrid">
+
+        <!-- 01: Studio Apartment — interiors (1)(2)(3) -->
+        <div class="unit-card reveal"
+             data-unit="Studio Apartment"
+             data-slides='["WUSE INNER (1).jpeg","WUSE INNER (2).jpeg","WUSE INNER (3).jpeg"]'
+             onclick="openUnitModal(this)">
+          <img class="thumb" src="wuse img (6).jpeg" alt="Studio Apartment exterior" loading="lazy" />
+          <div class="overlay">
+            <span class="unit-tier">Residence Type 01</span>
+            <span class="unit-name">Studio Apartment</span>
+            <div class="unit-specs">
+              <span>Living/Bed 26m²</span><span>Kitchen 9m²</span><span>Bathroom 4m²</span>
+            </div>
+            <span class="unit-cta"><i class="fa-solid fa-images text-gold"></i> View Interior Gallery</span>
+          </div>
+        </div>
+
+        <!-- 02: 1-Bedroom Urban Suite — interiors (4)(5)(6) -->
+        <div class="unit-card reveal" style="transition-delay:.1s;"
+             data-unit="1-Bedroom Urban Suite"
+             data-slides='["WUSE INNER (4).jpeg","WUSE INNER (5).jpeg","WUSE INNER (6).jpeg"]'
+             onclick="openUnitModal(this)">
+          <img class="thumb" src="wuse img (7).jpeg" alt="1-Bedroom Urban Suite exterior" loading="lazy" />
+          <div class="overlay">
+            <span class="unit-tier">Residence Type 02</span>
+            <span class="unit-name">1-Bedroom Urban Suite</span>
+            <div class="unit-specs">
+              <span>Lounge 26m²</span><span>Master Bed 28m²</span><span>Kitchen 14m²</span>
+            </div>
+            <span class="unit-cta"><i class="fa-solid fa-images text-gold"></i> View Interior Gallery</span>
+          </div>
+        </div>
+
+        <!-- 03: Two Bedroom Suite — interiors (7)(8)(9) -->
+        <div class="unit-card reveal" style="transition-delay:.2s;"
+             data-unit="Two Bedroom Suite"
+             data-slides='["WUSE INNER (7).jpeg","WUSE INNER (8).jpeg","WUSE INNER (9).jpeg"]'
+             onclick="openUnitModal(this)">
+          <img class="thumb" src="wuse img (8).jpeg" alt="Two Bedroom Suite exterior" loading="lazy" />
+          <div class="overlay">
+            <span class="unit-tier">Residence Type 03</span>
+            <span class="unit-name">Two Bedroom Suite</span>
+            <div class="unit-specs">
+              <span>Lounge 31m²</span><span>Master Bed 28m²</span><span>2nd Bed 24m²</span><span>Kitchen 11m²</span>
+            </div>
+            <span class="unit-cta"><i class="fa-solid fa-images text-gold"></i> View Interior Gallery</span>
+          </div>
+        </div>
+
+        <!-- 04: 3 Bedroom PentHouse — interiors (10)(6)(3) -->
+        <div class="unit-card reveal" style="transition-delay:.3s;"
+             data-unit="3 Bedroom PentHouse"
+             data-slides='["WUSE INNER (10).jpeg","WUSE INNER (6).jpeg","WUSE INNER (3).jpeg"]'
+             onclick="openUnitModal(this)">
+          <img class="thumb" src="wuse img (9).jpeg" alt="3 Bedroom PentHouse exterior" loading="lazy" />
+          <div class="overlay">
+            <span class="unit-tier">Residence Type 04</span>
+            <span class="unit-name">3 Bedroom PentHouse</span>
+            <div class="unit-specs">
+              <span>3 Bedrooms</span><span>Panoramic Views</span><span>Highest Floor</span>
+            </div>
+            <span class="unit-cta"><i class="fa-solid fa-images text-gold"></i> View Interior Gallery</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══ UNIT INTERIOR SLIDESHOW MODAL (full resolution) ═══ -->
+  <div id="unitModal" role="dialog" aria-modal="true" aria-label="Unit interior gallery">
+    <!-- Top bar -->
+    <div class="um-top">
+      <span class="um-unit-name" id="umLabel">Residence</span>
+      <button class="um-close" onclick="closeUnitModal()" aria-label="Close">&times;</button>
+    </div>
+
+    <!-- Full-res image wrap -->
+    <div class="um-img-wrap" id="umWrap">
+      <button class="um-nav um-prev" onclick="umStep(-1)" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></button>
+      <button class="um-nav um-next" onclick="umStep(1)"  aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="um-bottom">
+      <span class="um-counter" id="umCounter">1 / 3</span>
+      <div class="um-dots" id="umDots"></div>
+    </div>
+  </div>
+
+
+  <hr class="section-rule my-0" />
+
+
+  <!-- ═══ LEAD CAPTURE FORM ═══ -->
+  <section id="contact" class="py-24 px-5 bg-midnight" aria-label="Inspection tour booking form">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid md:grid-cols-2 gap-16 items-center">
+
+        <div class="reveal-left">
+          <p class="font-poppins text-xs tracking-[0.3em] uppercase text-gold mb-4 opacity-80">Secure Your Unit Now</p>
+          <h2 class="font-cinzel font-bold text-white text-2xl sm:text-3xl md:text-4xl tracking-wide leading-tight mb-6">
+            Do Not Miss Out on This<br /><span class="text-gold">Prime Investment.</span>
+          </h2>
+          <span class="gold-line-left"></span>
+          <p class="font-poppins text-white/65 text-base leading-relaxed mb-8">
+            Units at Skyfort Wuse II are limited and in high demand. Book your inspection tour now and get first access before the public launch.
+          </p>
+          <ul class="space-y-5 font-poppins text-sm text-white/70">
+            <li class="flex items-start gap-4">
+              <span class="w-8 h-8 flex-shrink-0 bg-gold/10 border border-gold/30 rounded-full flex items-center justify-center"><i class="fa-solid fa-fire-flame-curved text-gold text-xs"></i></span>
+              <div><strong class="text-white block mb-0.5">Limited Units Available</strong>Penthouse units are highly reserved. Act now.</div>
+            </li>
+            <li class="flex items-start gap-4">
+              <span class="w-8 h-8 flex-shrink-0 bg-gold/10 border border-gold/30 rounded-full flex items-center justify-center"><i class="fa-solid fa-map-pin text-gold text-xs"></i></span>
+              <div><strong class="text-white block mb-0.5">Prime Wuse II Location</strong>Steps from Abuja's top embassies, banks, and fine dining.</div>
+            </li>
+            <li class="flex items-start gap-4">
+              <span class="w-8 h-8 flex-shrink-0 bg-gold/10 border border-gold/30 rounded-full flex items-center justify-center"><i class="fa-brands fa-airbnb text-gold text-xs"></i></span>
+              <div><strong class="text-white block mb-0.5">Airbnb Income Opportunity</strong>Earn premium short-let returns with full property management.</div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="glass-card p-8 sm:p-10 reveal">
+          <h3 class="font-cinzel text-white text-lg font-bold tracking-wide mb-2">Book Inspection Tour</h3>
+          <p class="font-poppins text-white/45 text-xs mb-7">All fields are required. Response within 24 hours.</p>
+          <form id="wuseForm" action="#" method="post" novalidate>
+            <div class="mb-6">
+              <label for="wuse-name" class="block font-poppins text-xs tracking-widest uppercase text-gold/80 mb-2">Full Name *</label>
+              <input type="text" id="wuse-name" name="name" placeholder="e.g. Adebayo Kingsley" class="luxury-input" required autocomplete="name" />
+            </div>
+            <div class="mb-6">
+              <label for="wuse-email" class="block font-poppins text-xs tracking-widest uppercase text-gold/80 mb-2">Email Address *</label>
+              <input type="email" id="wuse-email" name="email" placeholder="e.g. you@example.com" class="luxury-input" required autocomplete="email" />
+            </div>
+            <div class="mb-8">
+              <label for="wuse-phone" class="block font-poppins text-xs tracking-widest uppercase text-gold/80 mb-2">Phone Number *</label>
+              <input type="tel" id="wuse-phone" name="phone" placeholder="e.g. +234 703 000 0000" class="luxury-input" required autocomplete="tel" />
+            </div>
+            <button type="submit" class="btn-gold w-full py-5 tracking-widest text-sm sm:text-base">
+              <i class="fa-solid fa-calendar-check"></i>&nbsp; Book Inspection Tour Now
+            </button>
+          </form>
+          <div id="wuse-success" class="hidden mt-6 text-center font-poppins text-sm text-green-400 bg-green-900/25 border border-green-600/30 rounded-lg p-4">
+            <i class="fa-solid fa-circle-check mr-2"></i> Excellent! Our team will reach out within 24 hours.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="border-t border-white/8 py-10 px-5 bg-[#030308]">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+      <img src="SKYFORT BRANDING DESIGNS.png" alt="Skyfort Logo" class="h-10 w-auto object-contain bg-white/90 rounded px-3 py-1" />
+      <p class="font-poppins text-white/35 text-xs text-center">
+        &copy; <span id="footerYear"></span> Skyfort Construction. All rights reserved.
+      </p>
+      <!-- WhatsApp icon removed from footer per project spec -->
+      <a href="hub.html" class="font-poppins text-white/40 hover:text-gold transition-colors text-sm flex items-center gap-1">
+        <i class="fa-solid fa-arrow-left text-xs"></i> Back to Hub
+      </a>
+    </div>
+  </footer>
+
+
+  <!--
+  ═══════════════════════════════════════════════════
+  WHATSAPP STICKY WIDGET — COMMENTED OUT
+  ═══════════════════════════════════════════════════
+  <a href="https://wa.me/2347036316514?text=Good%20day%2C%20Skyfort%20Team.%20I%20would%20like%20to%20schedule%20a%20private%20consultation%20regarding%20the%20exclusive%20Wuse%20II%20properties."
+     target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp"
+     class="wa-btn fixed bottom-6 right-6 z-50 w-16 h-16 bg-green-500 hover:bg-green-600
+            flex items-center justify-center text-white text-3xl shadow-xl transition-colors duration-300">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+  -->
+
+
+  <!-- ═══ JAVASCRIPT ═══ -->
+  <script>
+    /* ── Footer Year ── */
+    document.getElementById('footerYear').textContent = new Date().getFullYear();
+
+    /* ── Scroll Reveal ── */
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal, .reveal-left').forEach(el => obs.observe(el));
+
+    /* ─────────────────────────────────────────────────────
+       UNIT INTERIOR SLIDESHOW MODAL
+       Each unit card carries data-slides (JSON array of 3 interior images).
+       All images open at full resolution (object-fit: contain on black bg).
+    ───────────────────────────────────────────────────── */
+    let umSlides = [];
+    let umIdx   = 0;
+
+    function openUnitModal(card) {
+      umSlides = JSON.parse(card.getAttribute('data-slides'));
+      umIdx    = 0;
+      document.getElementById('umLabel').textContent = card.getAttribute('data-unit');
+      _buildUmSlides();
+      document.getElementById('unitModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function _buildUmSlides() {
+      const wrap = document.getElementById('umWrap');
+      wrap.querySelectorAll('img.um-slide').forEach(i => i.remove());
+
+      umSlides.forEach((src, i) => {
+        const img = document.createElement('img');
+        img.className = 'um-slide' + (i === 0 ? ' active' : '');
+        img.src       = src;
+        img.alt       = `Interior view ${i + 1}`;
+        img.loading   = i === 0 ? 'eager' : 'lazy';
+        wrap.insertBefore(img, wrap.querySelector('.um-prev'));
+      });
+
+      // Dots
+      const dotsEl = document.getElementById('umDots');
+      dotsEl.innerHTML = '';
+      umSlides.forEach((_, i) => {
+        const d = document.createElement('div');
+        d.className = 'um-dot' + (i === 0 ? ' active' : '');
+        d.onclick = () => umGoTo(i);
+        dotsEl.appendChild(d);
+      });
+
+      _umCounter();
+    }
+
+    function umStep(dir) {
+      umGoTo((umIdx + dir + umSlides.length) % umSlides.length);
+    }
+
+    function umGoTo(idx) {
+      umIdx = idx;
+      document.querySelectorAll('#umWrap img.um-slide').forEach((img, i) => img.classList.toggle('active', i === idx));
+      document.querySelectorAll('.um-dot').forEach((d, i) => d.classList.toggle('active', i === idx));
+      _umCounter();
+    }
+
+    function _umCounter() {
+      document.getElementById('umCounter').textContent = `${umIdx + 1} / ${umSlides.length}`;
+    }
+
+    function closeUnitModal() {
+      document.getElementById('unitModal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('unitModal').addEventListener('click', function(e) {
+      if (e.target === this) closeUnitModal();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      const m = document.getElementById('unitModal');
+      if (!m.classList.contains('active')) return;
+      if (e.key === 'Escape')     closeUnitModal();
+      if (e.key === 'ArrowLeft')  umStep(-1);
+      if (e.key === 'ArrowRight') umStep(1);
+    });
+
+    /* ── Form ── */
+    document.getElementById('wuseForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const n  = document.getElementById('wuse-name').value.trim();
+      const em = document.getElementById('wuse-email').value.trim();
+      const ph = document.getElementById('wuse-phone').value.trim();
+      if (!n || !em || !ph) { alert('Please fill in all required fields.'); return; }
+      document.getElementById('wuse-success').classList.remove('hidden');
+      this.reset(); this.style.opacity = '0.4'; this.style.pointerEvents = 'none';
+    });
+  </script>
+
+</body>
+</html>
